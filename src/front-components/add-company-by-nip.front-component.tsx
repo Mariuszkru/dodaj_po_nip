@@ -11,7 +11,8 @@ type LookupResponse =
   | { ok: false; error: string; message: string };
 
 const box: React.CSSProperties = { padding: 16, display: 'flex', flexDirection: 'column', gap: 10, fontFamily: 'inherit' };
-const input: React.CSSProperties = { padding: '6px 8px', borderRadius: 4, border: '1px solid #ccc', width: '100%', boxSizing: 'border-box' };
+const input: React.CSSProperties = { padding: '6px 8px', borderRadius: 4, border: '1px solid rgba(128, 128, 128, 0.5)', background: 'transparent', color: 'inherit', width: '100%', boxSizing: 'border-box' };
+const button: React.CSSProperties = { padding: '8px 14px', borderRadius: 6, border: '1px solid rgba(128, 128, 128, 0.5)', background: 'rgba(128, 128, 128, 0.15)', color: 'inherit', fontFamily: 'inherit', fontSize: 13, fontWeight: 500, cursor: 'pointer' };
 const label: React.CSSProperties = { fontSize: 12, opacity: 0.7 };
 
 const AddCompanyByNip = () => {
@@ -94,23 +95,23 @@ const AddCompanyByNip = () => {
           autoFocus
         />
       </div>
-      <button disabled={busy || !nip} onClick={fetchData}>
+      <button style={{ ...button, opacity: busy || !nip ? 0.5 : 1, cursor: busy || !nip ? 'not-allowed' : 'pointer' }} disabled={busy || !nip} onClick={fetchData}>
         {busy && !draft ? 'Pobieram…' : 'Pobierz dane'}
       </button>
 
-      {error && <div style={{ color: '#c0392b' }}>{error}</div>}
+      {error && <div style={{ color: '#e5484d', background: 'rgba(229, 72, 77, 0.12)', padding: 10, borderRadius: 4 }}>{error}</div>}
 
       {existing && (
-        <div style={{ background: '#fff4e5', padding: 10, borderRadius: 4 }}>
+        <div style={{ background: 'rgba(245, 166, 35, 0.18)', border: '1px solid rgba(245, 166, 35, 0.5)', color: 'inherit', padding: 10, borderRadius: 4 }}>
           Firma z tym NIP-em już istnieje: <b>{existing.name}</b>.{' '}
-          <button onClick={() => openCompany(existing.id)}>Otwórz istniejącą</button>
+          <button style={button} onClick={() => openCompany(existing.id)}>Otwórz istniejącą</button>
         </div>
       )}
 
       {draft && !existing && (
         <>
           {warnings.map((w) => (
-            <div key={w} style={{ fontSize: 12, color: '#8a6d3b' }}>⚠ {w}</div>
+            <div key={w} style={{ fontSize: 12, color: 'inherit', background: 'rgba(245, 166, 35, 0.18)', padding: '6px 8px', borderRadius: 4 }}>⚠ {w}</div>
           ))}
           <div><div style={label}>Nazwa</div><input style={input} value={draft.name} onChange={(e) => set({ name: e.target.value })} /></div>
           <div><div style={label}>Ulica i numer</div><input style={input} value={draft.address.addressStreet1} onChange={(e) => setAddr({ addressStreet1: e.target.value })} /></div>
@@ -127,7 +128,7 @@ const AddCompanyByNip = () => {
           <div style={{ fontSize: 12, opacity: 0.7 }}>
             Status VAT: {draft.statusVat || '—'} · Start działalności: {draft.dataRozpoczeciaDzialalnosci || '—'} · Źródła: {draft.zrodla.join(', ')}
           </div>
-          <button disabled={busy || !draft.name} onClick={save}>{busy ? 'Zapisuję…' : 'Dodaj firmę'}</button>
+          <button style={{ ...button, opacity: busy || !draft.name ? 0.5 : 1, cursor: busy || !draft.name ? 'not-allowed' : 'pointer' }} disabled={busy || !draft.name} onClick={save}>{busy ? 'Zapisuję…' : 'Dodaj firmę'}</button>
         </>
       )}
     </div>
