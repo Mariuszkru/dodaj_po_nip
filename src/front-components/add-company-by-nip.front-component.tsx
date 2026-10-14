@@ -71,6 +71,7 @@ const AddCompanyByNip = () => {
           id: true,
         },
       });
+      if (!created.createCompany) throw new Error('Brak odpowiedzi z serwera');
       await enqueueSnackbar({ message: 'Firma dodana', variant: 'success' });
       await openCompany(created.createCompany.id);
     } catch (e) {

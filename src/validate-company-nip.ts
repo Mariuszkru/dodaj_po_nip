@@ -44,7 +44,7 @@ export async function validateCompanyNip(event: CompanyEvent) {
     });
     await client.mutation({
       createNoteTarget: {
-        __args: { data: { noteId: note.createNote.id, targetCompanyId: event.recordId } },
+        __args: { data: { noteId: note.createNote!.id, targetCompanyId: event.recordId } },
         id: true,
       },
     });
