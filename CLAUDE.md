@@ -15,6 +15,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Single test: `yarn vitest run --config vitest.unit.config.ts <path>` (add `-t "<name>"` for one case)
 - `test/lookup.test.ts` uses `node:test`, not vitest, so no yarn script covers it: run `node --test test/lookup.test.ts`
 - Adding the app's REGON key locally: set the `REGON_API_KEY` app variable in Twenty (`REGON_ENV` = `test` by default, `prod` for production)
+- Deploy to the default remote (`recoop`, https://crm.recoop.pl): `./node_modules/.bin/twenty plan` (read-only preview), then `./node_modules/.bin/twenty apply --no-delete`. Typecheck must pass first. **Before every deploy bump the patch version in `package.json`** (e.g. 0.1.9 → 0.1.10) and commit it.
 
 ## Architecture
 
