@@ -1,4 +1,4 @@
-import { defineApplication } from 'twenty-sdk/define';
+import { defineApplication, FieldType } from 'twenty-sdk/define';
 
 import { ID } from 'src/constants/ids';
 import {
@@ -19,8 +19,13 @@ export default defineApplication({
     },
     REGON_ENV: {
       universalIdentifier: ID.varRegonEnv,
-      label: 'Środowisko REGON (test lub prod)',
-      description: 'Wpisz "test" (domyślnie) albo "prod".',
+      label: 'Środowisko REGON',
+      description: 'Środowisko testowe (domyślnie) albo produkcyjne.',
+      type: FieldType.SELECT,
+      options: [
+        { label: 'Testowe', value: 'test' },
+        { label: 'Produkcyjne', value: 'prod' },
+      ],
       value: 'test',
     },
   },
